@@ -1,6 +1,8 @@
 import React from 'react';
 // ?1. 
 import styled from '@emotion/styled';
+// ?3. import hook creatend
+import useMoneda from '../hooks/useMoney';
 
 // ?2.
 const Button = styled.input`
@@ -22,8 +24,14 @@ const Button = styled.input`
 `;
 
 const Form = () => {
+
+    // Utilizar useMoney, estos se deben nombrar en PascalCase ya que va ser un component
+    const [money, Select, setUpdateState] = useMoneda();
+
     return (
         <form>
+
+            <Select />
 
             <Button
                 type="submit"
