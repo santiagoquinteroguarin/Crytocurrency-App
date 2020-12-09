@@ -27,7 +27,7 @@ const Button = styled.input`
     }
 `;
 
-const Form = () => {
+const Form = ({setSavedCryptocurrency, setSavedCoin}) => {
 
     // State del listado de criptomonedas
     const [listCrypto, setSavedCrypto] = useState([]);
@@ -69,7 +69,8 @@ const Form = () => {
         setSavedError(false);
 
         // pasar los datos al componente principal
-
+        setSavedCoin(coin);
+        setSavedCryptocurrency(cryptocurrency);
     }
 
     return (
