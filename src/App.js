@@ -7,6 +7,7 @@ import image from './cryptomonedas.png';
 import Form from './components/Form';
 import axios from 'axios';
 import Calculate from './components/Calculate';
+import Spinner from './components/Spinner';
 
 // ?2.
 const Container = styled.div`
@@ -50,6 +51,7 @@ function App() {
   const [coin, setSavedCoin] = useState('');
   const [cryptocurrency, setSavedCryptocurrency] = useState('');
   const [response, setSavedResponse] = useState({});
+  const [loading, setSavedLoading] = useState(false);
 
   useEffect(() => {
     
@@ -61,10 +63,22 @@ function App() {
       const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptocurrency}&tsyms=${coin}`;
       const response = await axios.get(url);
 
-      setSavedResponse(response.data.DISPLAY[cryptocurrency][coin]);
+      // spinner
+      setSavedLoading(true);
+
+      // ocultar spinner
+      setTimeout(() => {
+        setSavedLoading(false);
+
+        // mostrar info
+        setSavedResponse(response.data.DISPLAY[cryptocurrency][coin]);
+      }, 4000);
     }
     calculateCryptocurrency();
   }, [coin, cryptocurrency]);
+
+  // mostrar resultado
+  const component = (loading) ? <Spinner/> : <Calculate response={response}/>;
 
   return (
     // ?3.
@@ -84,9 +98,7 @@ function App() {
           setSavedCryptocurrency={setSavedCryptocurrency}
         />
 
-        <Calculate
-          response={response}
-        />
+        {component}
       </div>
     </Container>
   );
