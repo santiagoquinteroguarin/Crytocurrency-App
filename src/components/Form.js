@@ -2,7 +2,7 @@ import React from 'react';
 // ?1. 
 import styled from '@emotion/styled';
 // ?3. import hook creatend
-import useMoneda from '../hooks/useMoney';
+import useCoin from '../hooks/useCoin';
 
 // ?2.
 const Button = styled.input`
@@ -25,8 +25,15 @@ const Button = styled.input`
 
 const Form = () => {
 
+    const COINS = [
+        {code: 'USD', name: 'Dolar de Estados Unidos'},
+        {code: 'MXN', name: 'Peso Mexicano'},
+        {code: 'EUR', name: 'Euro'},
+        {code: 'GBP', name: 'Libra Esterlina'},
+    ]
+
     // Utilizar useMoney, estos se deben nombrar en PascalCase ya que va ser un component
-    const [money, Select, setUpdateState] = useMoneda();
+    const [coin, Select] = useCoin('Elige tu moneda','', COINS);
 
     return (
         <form>
