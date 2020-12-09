@@ -3,6 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 // ?3. import hook creatend
 import useCoin from '../hooks/useCoin';
+import useCryptocurrency from '../hooks/useCryptocurrency';
 
 // ?2.
 const Button = styled.input`
@@ -35,10 +36,15 @@ const Form = () => {
     // Utilizar useMoney, estos se deben nombrar en PascalCase ya que va ser un component
     const [coin, Select] = useCoin('Elige tu moneda','', COINS);
 
+    // Utilizar useCryptocurrency
+    const [cryptocurrency, SelectCrypto] = useCryptocurrency('Elige tu Criptomoneda', '');
+
     return (
         <form>
 
             <Select />
+
+            <SelectCrypto />
 
             <Button
                 type="submit"
