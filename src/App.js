@@ -3,6 +3,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 // ?4.
 import image from './cryptomonedas.png';
+// ?8.
+import Form from './components/Form';
 
 // ?2.
 const Container = styled.div`
@@ -11,7 +13,7 @@ const Container = styled.div`
 
   @media (min-width: 992px) {
     display: grid;
-    grid-grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     column-gap: 2rem;
   }
 `;
@@ -54,6 +56,8 @@ function App() {
       </div>
       <div>
         <Heading>Cotiza Criptomodenas al instante</Heading>
+        
+        <Form />
       </div>
     </Container>
   );
