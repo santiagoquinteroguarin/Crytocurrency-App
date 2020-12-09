@@ -35,6 +35,10 @@ const useCryptocurrency = (label, initialState, options) => {
                 onChange={e => setUpdateState(e.target.value)}
                 value={state}
             >
+            <option value="">-- Seleccione --</option>
+            {options.map(option => (
+                <option key={option.CoinInfo.Id} value={option.CoinInfo.Name}>{option.CoinInfo.FullName}</option>
+            ))}
             </SelectTag>
         </Fragment>
     )

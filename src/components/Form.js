@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 // ?1. 
 import styled from '@emotion/styled';
 // ?3. import hook creatend
 import useCoin from '../hooks/useCoin';
 import useCryptocurrency from '../hooks/useCryptocurrency';
+import axios from 'axios';
+import Error from '../components/Error';
 
 // ?2.
 const Button = styled.input`
@@ -17,6 +19,7 @@ const Button = styled.input`
     border-radius: 10px;
     color: #FFFFFF;
     transition: background-color .3s ease;
+    outline: none;
 
     &:hover {
         background-color: #326AC0;
@@ -25,6 +28,10 @@ const Button = styled.input`
 `;
 
 const Form = () => {
+
+    // State del listado de criptomonedas
+    const [listCrypto, setSavedCrypto] = useState([]);
+    const [error, setSavedError] = useState(false);
 
     const COINS = [
         {code: 'USD', name: 'Dolar de Estados Unidos'},
@@ -37,10 +44,38 @@ const Form = () => {
     const [coin, Select] = useCoin('Elige tu moneda','', COINS);
 
     // Utilizar useCryptocurrency
-    const [cryptocurrency, SelectCrypto] = useCryptocurrency('Elige tu Criptomoneda', '');
+    const [cryptocurrency, SelectCrypto] = useCryptocurrency('Elige tu Criptomoneda', '',listCrypto);
+
+    // Ejecutar llamado a la API
+    useEffect(() => {
+        const queryAPI = async () => {
+            const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD';
+            const result = await axios.get(url);
+            setSavedCrypto(result.data.Data);
+        }
+        queryAPI();
+    }, []);
+
+    // Cuando user submit
+    const calculateCoin = e => {
+        e.preventDefault();
+
+        // validar si los campos estan llenos
+        if(coin === '' || cryptocurrency === '') {
+            setSavedError(true);
+            return;
+        }
+
+        setSavedError(false);
+
+        // pasar los datos al componente principal
+
+    }
 
     return (
-        <form>
+        <form onSubmit={calculateCoin}>
+
+            {error ? <Error message="Los campos son obligatorios"/> : null}
 
             <Select />
 
